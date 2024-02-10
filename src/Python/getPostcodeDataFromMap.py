@@ -1,5 +1,7 @@
 import pandas
 class retrieveDataByPostcode:
-    def getPostcodeDataFromMap(postcode, postcodeMap):
-        decileData = postcodeMap.loc[postcodeMap['PCD'] == postcode]
+    def __init__(self, postcodeMap):
+        self.postcodeMap = postcodeMap
+    def getPostcodeDataFromMap(self, postcode):
+        decileData = self.postcodeMap.loc[self.postcodeMap['PCD'] == postcode]
         return decileData

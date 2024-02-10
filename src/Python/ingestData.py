@@ -1,14 +1,17 @@
 import pandas as pd
 
 class IngestData:
+    def __init__(self, centroidsFile, iodFile):
+        self.centroidsFile = centroidsFile
+        self.iodFile = iodFile
 
-    def readCentroidsMap(centroidsFile):
+    def readCentroidsMap(self):
         #read csv file but only certain columns
         columnsToLoad = ['PCD', 'LSOA01']
-        centroidsDF = pd.read_csv(centroidsFile, usecols=columnsToLoad, compression='gzip')
+        centroidsDF = pd.read_csv(self.centroidsFile, usecols=columnsToLoad, compression='gzip')
         return centroidsDF
     
-    def readIndicesOfDeprivation(iodFile):
+    def readIndicesOfDeprivation(self):
         columnsToLoad = ['LSOA code (2011)',
                         'Index of Multiple Deprivation (IMD) Decile (where 1 is most deprived 10% of LSOAs)',
                         'Income Decile (where 1 is most deprived 10% of LSOAs)',
@@ -27,5 +30,5 @@ class IngestData:
                         'Indoors Sub-domain Decile (where 1 is most deprived 10% of LSOAs)',
                         'Outdoors Sub-domain Decile (where 1 is most deprived 10% of LSOAs)']
         
-        iodDF = pd.read_csv(iodFile, usecols=columnsToLoad, compression='gzip')
+        iodDF = pd.read_csv(self.iodFile, usecols=columnsToLoad, compression='gzip')
         return iodDF

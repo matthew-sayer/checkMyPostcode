@@ -1,12 +1,18 @@
 import ingestData as ingest
 import createPostcodeMap as map
 import getPostcodeDataFromMap as getData
+import visualiseData as vis
 
 def main(centroidsFile, iodFile):
         print("Application loading...")
-        centroidsDF = ingest.IngestData.readCentroidsMap(centroidsFile)
-        iodDF = ingest.IngestData.readIndicesOfDeprivation(iodFile)
-        postcodeMap = map.getPostcodeData.createPostcodeMap(centroidsDF, iodDF)
+        ingestData = ingest.IngestData(centroidsFile, iodFile)
+        centroidsDF = ingestData.readCentroidsMap()
+        iodDF = ingestData.readIndicesOfDeprivation()
+        map_data = map.getPostcodeData(centroidsDF, iodDF)
+        postcodeMap = map_data.createPostcodeMap()
+        vis_data = vis.visualiseData(postcodeMap)
+        vis_data.choroplethMap()
+        get_data = getData.retrieveDataByPostcode(postcodeMap)
 
         while True:
        #get postcode input 
@@ -16,7 +22,7 @@ def main(centroidsFile, iodFile):
                 postcode = postcode.upper()
                 if postcode.lower() == 'quit':
                         break
-                decileData = getData.retrieveDataByPostcode.getPostcodeDataFromMap(postcode, postcodeMap)
+                decileData = get_data.getPostcodeDataFromMap(postcode)
                 if decileData.empty:
                         if postcode.__len__() == 7:
                               #add space after 4th character
@@ -27,7 +33,7 @@ def main(centroidsFile, iodFile):
                                 postcode = postcode.upper()
                         if decileData.empty:
                                 print('Postcode not found')
-                decileData = getData.retrieveDataByPostcode.getPostcodeDataFromMap(postcode, postcodeMap)
+                decileData = get_data.getPostcodeDataFromMap(postcode)
                 if not decileData.empty:
                         print(decileData)
 
