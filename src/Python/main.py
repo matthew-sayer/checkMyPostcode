@@ -31,11 +31,11 @@ def main(centroidsFile, iodFile):
                         elif postcode.__len__() == 6:
                                 postcode = postcode[:3] + ' ' + postcode[3:]
                                 postcode = postcode.upper()
-                        if decileData.empty:
-                                print('Postcode not found')
                 decileData = get_data.getPostcodeDataFromMap(postcode)
                 if not decileData.empty:
                         print(decileData)
+                else: 
+                        print('Postcode not found')
 
 if __name__ == "__main__":
-    main('https://github.com/matthew-sayer/checkMyPostcode-/raw/master/data/ONSPD_Centroids.csv.gz', 'https://github.com/matthew-sayer/checkMyPostcode-/raw/master/data/IoD2019.csv.gz')
+    main('C:\\Users\\matth\\MyScripts\\temp\\ONSPD_Centroids.csv.gz', 'C:\\Users\\matth\\MyScripts\\temp\\IoD2019.csv.gz')
