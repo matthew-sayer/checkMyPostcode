@@ -18,4 +18,8 @@ class getPostcodeData:
         self.centroidsDF = self.centroidsDF.rename(columns={'LSOA01': 'LSOA'})
         self.iodDF = self.iodDF.rename(columns={'LSOA code (2011)': 'LSOA'})
         postcodeMap = pd.merge(self.iodDF, self.centroidsDF, on='LSOA', how='left')
+        #drop the LSOA column
+        postcodeMap = postcodeMap.drop(columns=['LSOA'])
+        postcodeMap = postcodeMap.rename(columns={'PCD': 'Postcode'})
+        postcodeMap = postcodeMap[['Postcode'] + [col for col in postcodeMap.columns if col != 'Postcode']]
         return postcodeMap

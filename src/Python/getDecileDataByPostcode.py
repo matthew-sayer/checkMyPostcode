@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 #Here, I am creating a class to pull in the postcode map. Then, I take the postcode input and check it against the map.
 #After that, I check if it matches and if it does not then I reformat it.
 #If it still doesn't match, I state that the postcode was not found.
@@ -22,7 +23,7 @@ class getDecileDataForPostcode(getDecileData):
     def __init__(self, postcodeMapRef):
         getDecileData.__init__(self, postcodeMapRef)
     def getPostcodeDataFromMap(self, postcode):
-        decileData = self.postcodeMap.loc[self.postcodeMap['PCD'] == postcode]
+        decileData = self.postcodeMap.loc[self.postcodeMap['Postcode'] == postcode]
         return decileData
     
     def checkDecileData(self, postcode):
@@ -40,6 +41,6 @@ class getDecileDataForPostcode(getDecileData):
 
     def outputDecileData(self, decileData):
             if not decileData.empty:
-                print(decileData)
+                return decileData
             else: 
                 print('Postcode not found')
