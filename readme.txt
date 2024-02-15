@@ -1,4 +1,4 @@
-Ever wanted to know how wealthy or deprived an area in England is?
+Want to know how your area scores on the deprivation scale? Looking to move, and want to find out what an area is really like?
 
 Area checker allows you to search by postcode to find the levels of deprivation within the local authority area, represented in a 1-10 decile scale (higher is less deprived). 
 
