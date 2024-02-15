@@ -2,6 +2,7 @@ import ingestData as ingest
 import createPostcodeMap as map
 import getDecileDataByPostcode as getDecileData
 import visualiseData as vis
+import analyseData as analyse
 
 def main(centroidsFile, iodFile):
         print("Application loading...")
@@ -12,6 +13,8 @@ def main(centroidsFile, iodFile):
         print("Mapping LSOA data to postcodes...")
         map_data = map.getPostcodeData(centroidsDF, iodDF)
         postcodeMapRef = map_data.createPostcodeMap()
+        analyseData = analyse.AnalyseData(postcodeMapRef)
+        analyseData.exploratoryAnalysis()
         return postcodeMapRef
      
 

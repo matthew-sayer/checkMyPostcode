@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import main
-
+import analyseData
 homepage = 'checkMyPostcode.html'
 
 #create a Flask instance
@@ -12,6 +12,10 @@ def loadPostcodeMap():
     return postcodeMapRef
 
 postcodeMapRef = loadPostcodeMap()
+analyseData = analyseData.AnalyseData(postcodeMapRef)
+descriptions, correlations = analyseData.exploratoryAnalysis()
+descriptions = descriptions.to_html()
+correlations = correlations.to_html()
 
 @app.route('/', methods=['GET', 'POST', 'PUT', 'PATCH']) #this shows that the site will be e.g. localhost:5000/
 def start():
@@ -20,9 +24,9 @@ def start():
         decileDataInstance = main.getDecileData.getDecileDataForPostcode(postcodeMapRef)
         decileData = decileDataInstance.checkDecileData(postcode)
         result = decileDataInstance.outputDecileData(decileData).to_html()
-        return render_template(homepage, result=result)
+        return render_template(homepage, result=result, descriptions=descriptions, correlations=correlations)
     else:
-        return render_template(homepage) #renders the HTML file
+        return render_template(homepage, descriptions=descriptions, correlations=correlations) #renders the HTML file
 
 if __name__ == '__main__':
     app.run()
